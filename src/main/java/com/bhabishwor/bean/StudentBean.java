@@ -63,6 +63,11 @@ public class StudentBean implements Serializable {
 		this.selectedClass = selectedClass;
 	}
 
+	public void setSelectedStudent(Student student) {
+		this.student = student;
+		this.selectedClass = student.getStudentClass();
+	}
+
 	public void saveStudent() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
@@ -80,16 +85,17 @@ public class StudentBean implements Serializable {
 		}
 	}
 
-	public void updateStudent(Student student) {
+	public void updateStudent() {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		try {
+			student.setStudentClass(selectedClass);
+
 			entityManager.getTransaction().begin();
 			entityManager.merge(student);
 			entityManager.getTransaction().commit();
 
 			students = loadStudents();
-			student = new Student();
 		} finally {
 			entityManager.close();
 		}
@@ -113,6 +119,12 @@ public class StudentBean implements Serializable {
 		} finally {
 			entityManager.close();
 		}
+	}
+
+	public void editStudent(Student selected) {
+		this.student = selected;
+		this.selectedClass = selected.getStudentClass();
+		onClassChange();
 	}
 
 	public void onClassChange() {
