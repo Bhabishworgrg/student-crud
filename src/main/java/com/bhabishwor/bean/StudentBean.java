@@ -64,7 +64,6 @@ public class StudentBean implements Serializable {
 	}
 
 	public void setSelectedStudent(Student student) {
-		this.student = student;
 		this.selectedClass = student.getStudentClass();
 	}
 
