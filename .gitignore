@@ -1,0 +1,29 @@
+# IDE specific files
+*.swp
+*.swo
+.idea/
+*.iml
+*.iws
+.classpath
+.project
+.settings/
+hs_err_pid*.log
+.vscode/
+
+# Build directories
+build/
+dist/
+out/
+bin/
+target/
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+.DS_Store
+Thumbs.db
