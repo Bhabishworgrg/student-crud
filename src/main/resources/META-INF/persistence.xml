@@ -11,8 +11,8 @@
 		<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		<property name="javax.persistence.jdbc.url" 
 			value="jdbc:mysql://localhost:3306/student_crud?useSSL=false&amp;serverTimezone=UTC"/>
-		<property name="javax.persistence.jdbc.user" value="USER"/>
-		<property name="javax.persistence.jdbc.password" value="PASSWORD"/>
+		<property name="javax.persistence.jdbc.user" value="lucasbeastbeast"/>
+		<property name="javax.persistence.jdbc.password" value="chimichangas"/>
 
 		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
 		<property name="hibernate.hbm2ddl.auto" value="update"/>

@@ -95,16 +95,17 @@ public class StudentBean implements Serializable {
 			entityManager.getTransaction().commit();
 
 			students = loadStudents();
+			student = new Student();
 		} finally {
 			entityManager.close();
 		}
 	}
 
-	public void deleteStudent(Student student) {
+	public void deleteStudent(Student s) {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		try {
-			Student toRemove = entityManager.find(Student.class, student.getId());
+			Student toRemove = entityManager.find(Student.class, s.getId());
 
 			if (toRemove == null) {
 				return;
@@ -120,10 +121,15 @@ public class StudentBean implements Serializable {
 		}
 	}
 
-	public void editStudent(Student selected) {
-		this.student = selected;
-		this.selectedClass = selected.getStudentClass();
-		onClassChange();
+	public void editStudent(Student s) {
+		EntityManager em = entityManagerFactory.createEntityManager();
+		try {
+			this.student = em.find(Student.class, s.getId());
+			this.selectedClass = student.getStudentClass();
+			onClassChange();
+		} finally {
+			em.close();
+		}
 	}
 
 	public void onClassChange() {

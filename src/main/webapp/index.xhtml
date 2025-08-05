@@ -34,42 +34,48 @@
         </p:panelGrid>
 
         <p:commandButton value="Save" action="#{studentBean.saveStudent}" 
-			update="studentTable studentForm" icon="pi pi-save" />
-
-        <p:separator />
-
-        <h2>Student List</h2>
-
-        <p:dataTable id="studentTable" value="#{studentBean.students}" 
-			var="s" editable="false" style="width:100%">
-            <p:column headerText="Name">
-                <h:outputText value="#{s.name}" />
-            </p:column>
-
-            <p:column headerText="Address">
-                <h:outputText value="#{s.address}" />
-            </p:column>
-
-            <p:column headerText="Class">
-                <h:outputText value="#{s.studentClass}" />
-            </p:column>
-
-            <p:column headerText="Subject">
-                <h:outputText value="#{s.subject}" />
-            </p:column>
-
-            <p:column headerText="Action">
-                <p:commandButton icon="pi pi-pencil" update=":editDialog" oncomplete="PF('editDialog').show()" 
-					actionListener="#{studentBean.editStudent(s)}" title="Edit" />
-                <p:spacer width="10" />
-                <p:commandButton icon="pi pi-trash" action="#{studentBean.deleteStudent(s)}" 
-					update="studentTable studentForm" title="Delete" />
-            </p:column>
-        </p:dataTable>
+			update="studentList studentForm" icon="pi pi-save" />
     </h:form>
+
+	<p:separator />
+
+	<h:form id="studentList">
+		<h2>Student List</h2>
+
+		<p:dataTable id="studentTable" value="#{studentBean.students}" 
+			var="s" editable="false" style="width:100%">
+			<h:inputHidden value="#{s.id}" />
+			
+			<p:column headerText="Name">
+				<h:outputText value="#{s.name}" />
+			</p:column>
+
+			<p:column headerText="Address">
+				<h:outputText value="#{s.address}" />
+			</p:column>
+
+			<p:column headerText="Class">
+				<h:outputText value="#{s.studentClass}" />
+			</p:column>
+
+			<p:column headerText="Subject">
+				<h:outputText value="#{s.subject}" />
+			</p:column>
+
+			<p:column headerText="Action">
+				<p:commandButton icon="pi pi-pencil" actionListener="#{studentBean.editStudent(s)}"
+					update=":editForm" oncomplete="console.log('oncomplete fired'); PF('editDialog').show()" title="Edit" />
+				<p:spacer width="10" />
+				<p:commandButton icon="pi pi-trash" action="#{studentBean.deleteStudent(s)}" 
+					update="studentList studentForm" title="Delete" />
+			</p:column>
+		</p:dataTable>
+	</h:form>
 
     <p:dialog id="editDialog" header="Edit Student" widgetVar="editDialog" modal="true" resizable="false">
         <h:form id="editForm">
+			<h:inputHidden id="studentId" value="#{studentBean.student.id}"/>
+
             <p:panelGrid columns="2" columnClasses="label,value">
                 <h:outputLabel for="nameEdit" value="Name:" />
                 <p:inputText id="nameEdit" value="#{studentBean.student.name}" required="true" />
@@ -91,8 +97,8 @@
                 </p:selectOneMenu>
             </p:panelGrid>
 
-            <p:commandButton value="Update" action="#{studentBean.updateStudent}" oncomplete="PF('editDialog').hide()" 
-				update=":studentForm:studentTable :studentForm" icon="pi pi-check" />
+            <p:commandButton action="#{studentBean.updateStudent}" update="studentList studentForm"
+				oncomplete="PF('editDialog').hide()" icon="pi pi-check" value="Update" />
         </h:form>
     </p:dialog>
 </h:body>
